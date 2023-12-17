@@ -25,7 +25,6 @@ export default function Login() {
     event.preventDefault();
   };
 
-
   onAuthStateChanged(auth, (currentUser) => {
     console.log(currentUser);
   });
