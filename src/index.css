@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/**   Start Auth module  **/
+.login{
+  background-color:#1976D2;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login .login-form{
+  background-color: #fff;
+  color:#222;
+  width: 600px;
+  min-height:200px;
+  border-radius: 20px;
+}
+.login .login-form h6{
+  font-size: 22px;
+}
+.login .login-form .new-user{
+  margin-top: 5px;
+  color:#222;
+  font-size: 17px;
+}
+.login-form .new-user span{
+  font-weight: 600;
+  color: #0B5ED7;
+  font-size: 17px;
+  text-decoration: underline;
+  cursor: pointer;  
+}
+/**   End Auth module  **/
+
+/**   Start Dashboard module  **/
+.dashboard h3{
+font-size: 22px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.dashboard .appointment-box,.dashboard .record-box{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 300px;
+  position: relative;
+  padding: 20px;
 }
+.dashboard .no-data{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position:absolute;
+  color: #ccc;
+  font-size: 22px;
+}
+
+/**   End Dashboard module  **/

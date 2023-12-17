@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, lazy } from "react";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import GlobalLayout from "./layouts/DashboardLayout";
+import AllRoute from "./routes";
+import { ReactNotifications } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { useGlobalState } from "./context/global";
 
 function App() {
+  const { isAuth } = useGlobalState();
+
+  const Login = lazy(() => import("./modules/Auth/login"));
+  const Signup= lazy(() => import("./modules/Auth/signup"))
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ReactNotifications />
+
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Suspense fallback={<div>Loading ...</div>}>
+            {isAuth ? (
+              <GlobalLayout>{AllRoute}</GlobalLayout>
+            ) : (
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Signup />} />
+
+              </Routes>
+            )}
+          </Suspense>
+        </BrowserRouter>
+      </ErrorBoundary>
     </div>
   );
 }
