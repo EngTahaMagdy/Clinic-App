@@ -54,3 +54,7 @@ font-size: 22px;
 }
 
 /**   End Dashboard module  **/
+.input-error{
+  border: 2px solid #a51c1c;
+
+}

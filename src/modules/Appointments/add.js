@@ -1,46 +1,48 @@
-import { FormControl, TextField } from '@mui/material';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Store } from 'react-notifications-component';
-import { useNavigate } from 'react-router-dom';
+import { FormControl, TextField } from "@mui/material";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Store } from "react-notifications-component";
+import { useNavigate } from "react-router-dom";
 
 export default function Add() {
-    const navigate=useNavigate();
-    const [appointmentState, setAppointmentState] = useState({
-        name:"",
-        email:"",
-        doctorName:"",
-        doctorEmail:"",
-    })
-    const baseURL = "https://jsonplaceholder.typicode.com/users";
+  const navigate = useNavigate();
+  const [appointmentState, setAppointmentState] = useState({
+    name: "",
+    email: "",
+    doctorName: "",
+    doctorEmail: "",
+  });
+  const baseURL = "https://jsonplaceholder.typicode.com/users";
 
-    useEffect(() => {
-        axios.get(baseURL).then((resualt) => {
-         // setAppointmetState([ ...appointmetState,...resualt.data]);
-        });
-        return () => {};
-      }, []);
-const add=async()=>{
-    const res= await axios.post(baseURL,{...appointmentState}).then((res) => {
+  useEffect(() => {
+    axios.get(baseURL).then((resualt) => {
+      // setAppointmetState([ ...appointmetState,...resualt.data]);
+    });
+    return () => {};
+  }, []);
+  const add = async () => {
+    const res = await axios
+      .post(baseURL, { ...appointmentState })
+      .then((res) => {
         Store.addNotification({
-            title: "Info",
-            message: "Create Appointment successfully",
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-              duration: 1000,
-              onScreen: true,
-              pauseOnHover: true,
-            },
-            onRemoval: () => {
-            
-              navigate("/appointments");
-            },
-          });
-    }).catch((error) => {
+          title: "Info",
+          message: "Create Appointment successfully",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 1000,
+            onScreen: true,
+            pauseOnHover: true,
+          },
+          onRemoval: () => {
+            navigate("/appointments");
+          },
+        });
+      })
+      .catch((error) => {
         Store.addNotification({
           title: "Something Went Wrong!",
           message: error.message,
@@ -55,12 +57,12 @@ const add=async()=>{
             pauseOnHover: true,
           },
         });
-      });;
-}
+      });
+  };
 
   return (
-    <div className='addAppointment'>
-         <div className="login-form p-5">
+    <div className="addAppointment">
+      <div className="login-form p-5">
         <h6 className="text-center">Add Appoinment</h6>
 
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -83,7 +85,10 @@ const add=async()=>{
             variant="outlined"
             value={appointmentState.email}
             onChange={(e) =>
-                setAppointmentState({ ...appointmentState, email: e.target.value })
+              setAppointmentState({
+                ...appointmentState,
+                email: e.target.value,
+              })
             }
           />
         </FormControl>
@@ -96,7 +101,10 @@ const add=async()=>{
             variant="outlined"
             value={appointmentState.doctorName}
             onChange={(e) =>
-              setAppointmentState({ ...appointmentState, doctorName: e.target.value })
+              setAppointmentState({
+                ...appointmentState,
+                doctorName: e.target.value,
+              })
             }
           />
         </FormControl>
@@ -108,17 +116,18 @@ const add=async()=>{
             variant="outlined"
             value={appointmentState.doctorEmail}
             onChange={(e) =>
-                setAppointmentState({ ...appointmentState, doctorEmail: e.target.value })
+              setAppointmentState({
+                ...appointmentState,
+                doctorEmail: e.target.value,
+              })
             }
           />
         </FormControl>
 
-
-      
         <button className="btn btn-primary w-100" onClick={add}>
           Create Appointment
         </button>
       </div>
     </div>
-  )
+  );
 }

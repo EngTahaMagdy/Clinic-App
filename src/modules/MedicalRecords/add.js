@@ -31,7 +31,6 @@ export default function Add() {
 
   const add = async () => {
     dispatch({ type: "Allrecords", allRecords: [...allRecords, recordState] });
-
     const response = await axios
       .post("http://localhost:5000/send-email", {
         recipient: recordState.doctorEmail,
