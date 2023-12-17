@@ -35,7 +35,7 @@ export default function Add() {
       .post("http://localhost:5000/send-email", {
         recipient: recordState.doctorEmail,
         subject: "Hello Docter",
-        content: `There is New Request From Patient Name ${recordState.name}`,
+        content: `Upload Medical Record From Patient Name ${recordState.name}`,
       })
       .then((result) => {
         Store.addNotification({
@@ -92,7 +92,7 @@ export default function Add() {
           />
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <label>Doctor Email Address</label>
+          <label>Doctor Email Address (*Note after adding Record , send email notification on this mail)</label>
           <TextField
             fullWidth
             placeholder="Enter Doctor Email Address"
@@ -135,7 +135,7 @@ export default function Add() {
         </FormControl>
 
         <button className="btn btn-primary w-100" onClick={add}>
-          Create Appointment
+        Upload Medical Record
         </button>
       </div>
     </div>

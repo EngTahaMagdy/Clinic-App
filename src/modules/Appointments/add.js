@@ -23,24 +23,40 @@ export default function Add() {
   const add = async () => {
     const res = await axios
       .post(baseURL, { ...appointmentState })
-      .then((res) => {
-        Store.addNotification({
-          title: "Info",
-          message: "Create Appointment successfully",
-          type: "success",
-          insert: "top",
-          container: "top-right",
-          animationIn: ["animated", "fadeIn"],
-          animationOut: ["animated", "fadeOut"],
-          dismiss: {
-            duration: 1000,
-            onScreen: true,
-            pauseOnHover: true,
-          },
-          onRemoval: () => {
-            navigate("/appointments");
-          },
-        });
+      .then(async(res) => {
+        await axios
+        .post("http://localhost:5000/send-email", {
+          recipient: appointmentState.doctorEmail,
+          subject: "Hello Docter",
+          content: `There is New Request From Patient Name ${appointmentState.name}`,
+        }).then(()=>{
+            Store.addNotification({
+                title: "Info",
+                message: "Create Appointment successfully and Send Email For Doctor",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                  duration: 1000,
+                  onScreen: true,
+                  pauseOnHover: true,
+                },
+                onRemoval: () => {
+                  navigate("/appointments");
+                },
+              });
+        })
+
+
+
+
+
+
+
+
+      
       })
       .catch((error) => {
         Store.addNotification({
@@ -109,7 +125,7 @@ export default function Add() {
           />
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <label>Email Address</label>
+          <label>Email Address (*Note after adding Appointment , send email notification on this mail)</label>
           <TextField
             fullWidth
             placeholder="Enter Doctor Email Address"

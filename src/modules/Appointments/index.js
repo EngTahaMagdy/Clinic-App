@@ -100,7 +100,7 @@ export default function Appointments() {
             <TableRow>
               <TableCell>#</TableCell>
               <TableCell>Patient</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell>Email {isDoctor?"(Note in case accepting / rejecting send email on this mail)":null}</TableCell>
               {isDoctor ? <TableCell>Action</TableCell> : null}
             </TableRow>
           </TableHead>
